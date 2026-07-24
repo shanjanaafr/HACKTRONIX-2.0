@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+<section class="container py-4">
+  <h2 class="mb-4"><i class="bi bi-bar-chart-line me-2"></i>Analytics Dashboard</h2>
+
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+      <div class="metric-card">
+        <i class="bi bi-collection-fill"></i>
+        <div class="metric-value">{{ stats.total_detections }}</div>
+        <div class="metric-label">Total Detections</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="metric-card">
+        <i class="bi bi-rulers"></i>
+        <div class="metric-value">{{ stats.avg_distance if stats.avg_distance is not none else '—' }}</div>
+        <div class="metric-label">Avg Distance (m)</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="metric-card">
+        <i class="bi bi-arrow-down-circle"></i>
+        <div class="metric-value">{{ stats.min_distance if stats.min_distance is not none else '—' }}</div>
+        <div class="metric-label">Closest (m)</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="metric-card">
+        <i class="bi bi-arrow-up-circle"></i>
+        <div class="metric-value">{{ stats.max_distance if stats.max_distance is not none else '—' }}</div>
+        <div class="metric-label">Farthest (m)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div class="chart-card">
+        <h6 class="mb-3">Distance Over Time</h6>
+        <canvas id="distanceChart"></canvas>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="chart-card">
+        <h6 class="mb-3">Angle Over Time</h6>
+        <canvas id="angleChart"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+{% endblock %}

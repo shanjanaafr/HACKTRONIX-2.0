@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}FaceX · Home{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="container text-center py-5">
+    <span class="badge badge-soft mb-3"><i class="bi bi-stars me-1"></i>Project</span>
+    <h1 class="display-4 fw-bold mb-3">Real-Time Face Distance &amp; Angle Estimation</h1>
+    <p class="lead col-lg-8 mx-auto mb-4 text-muted-custom">
+      A single webcam is all it takes. Using MediaPipe's face detector and simple pinhole-camera
+      geometry, this app estimates how far you are from the screen and how far off-center you're
+      standing — entirely in real time, running locally on your laptop.
+    </p>
+    <a href="/detection" class="btn btn-lg btn-gradient px-4 py-2">
+      <i class="bi bi-play-circle-fill me-2"></i>Start Detection
+    </a>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="feature-card h-100">
+        <div class="icon-badge mb-3"><i class="bi bi-rulers"></i></div>
+        <h5>Depth Estimation</h5>
+        <p class="text-muted-custom mb-0">
+          Uses the classic <code>Z = f&times;W / w<sub>px</sub></code> similar-triangles formula,
+          calibrated to your own webcam for accurate real-world distance in meters.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-card h-100">
+        <div class="icon-badge mb-3"><i class="bi bi-compass"></i></div>
+        <h5>Angle Detection</h5>
+        <p class="text-muted-custom mb-0">
+          Computes horizontal deviation from the camera's optical axis with
+          <code>&theta; = arctan((x-c<sub>x</sub>)/f)</code>, flagging Left / Center / Right.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-card h-100">
+        <div class="icon-badge mb-3"><i class="bi bi-graph-up-arrow"></i></div>
+        <h5>History &amp; Analytics</h5>
+        <p class="text-muted-custom mb-0">
+          Every detection is logged to SQLite with a face thumbnail, then visualized with
+          Chart.js on the analytics dashboard.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-4">
+  <div class="about-card p-4 p-lg-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <h3 class="mb-3"><i class="bi bi-info-circle me-2"></i>About the Project</h3>
+        <p class="text-muted-custom">
+          FaceX is a beginner-friendly computer vision system.
+          It demonstrates how classical camera geometry (the pinhole camera model) can be
+          combined with a modern, lightweight face detector to solve a practical depth &amp;
+          orientation estimation problem — without any specialized depth hardware, purely
+          from a single RGB webcam.
+        </p>
+        <ul class="list-unstyled text-muted-custom mb-0">
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Runs 100% locally, no cloud dependency</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Simple, well-documented Python codebase</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>One-time calibration for accurate real-world units</li>
+        </ul>
+      </div>
+      <div class="col-lg-5">
+        <h5 class="mb-3"><i class="bi bi-cpu me-2"></i>Technology Used</h5>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="tech-pill"><i class="bi bi-filetype-py me-1"></i>Python</span>
+          <span class="tech-pill">OpenCV</span>
+          <span class="tech-pill">MediaPipe</span>
+          <span class="tech-pill">NumPy</span>
+          <span class="tech-pill">Flask</span>
+          <span class="tech-pill">SQLite</span>
+          <span class="tech-pill">Bootstrap</span>
+          <span class="tech-pill">Chart.js</span>
+          <span class="tech-pill">HTML / CSS / JS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team section removed -->
+{% endblock %}

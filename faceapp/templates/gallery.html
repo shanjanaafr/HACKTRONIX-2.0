@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Gallery{% endblock %}
+
+{% block content %}
+<section class="container py-4">
+  <h2 class="mb-4"><i class="bi bi-images me-2"></i>Face Gallery</h2>
+
+  <div class="row g-3">
+    {% for row in rows %}
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="gallery-card">
+        <img src="{{ url_for('static', filename='thumbnails/' + row.thumbnail) }}" class="gallery-img">
+        <div class="gallery-meta">
+          <div><i class="bi bi-clock me-1"></i>{{ row.timestamp }}</div>
+          <div><i class="bi bi-rulers me-1"></i>{{ row.distance if row.distance is not none else '—' }} m</div>
+          <div><i class="bi bi-compass me-1"></i>{{ row.angle if row.angle is not none else '—' }}&deg;</div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center text-muted-custom py-5">
+      <i class="bi bi-images display-3 mb-3 d-block"></i>
+      No captured faces yet. Run Live Detection to populate the gallery.
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
