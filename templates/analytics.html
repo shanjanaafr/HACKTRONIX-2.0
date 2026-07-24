@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Analytics - BallVision{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Analytics Dashboard</h2>
+<p class="page-subtitle">Aggregate statistics across all detection sessions.</p>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3 col-6">
+    <div class="glass-card stat-card">
+      <div class="stat-icon" style="background: rgba(34,230,160,0.14); color: var(--accent);"><i class="bi bi-bullseye"></i></div>
+      <span class="stat-label">Total Detections</span>
+      <span class="stat-value" id="statTotal">0</span>
+    </div>
+  </div>
+  <div class="col-md-3 col-6">
+    <div class="glass-card stat-card">
+      <div class="stat-icon" style="background: rgba(79,139,255,0.14); color: var(--accent-2);"><i class="bi bi-percent"></i></div>
+      <span class="stat-label">Avg Confidence</span>
+      <span class="stat-value" id="statAvgConf">0%</span>
+    </div>
+  </div>
+  <div class="col-md-3 col-6">
+    <div class="glass-card stat-card">
+      <div class="stat-icon" style="background: rgba(177,108,255,0.14); color: var(--accent-3);"><i class="bi bi-arrow-up-circle"></i></div>
+      <span class="stat-label">Max Confidence</span>
+      <span class="stat-value" id="statMaxConf">0%</span>
+    </div>
+  </div>
+  <div class="col-md-3 col-6">
+    <div class="glass-card stat-card">
+      <div class="stat-icon" style="background: rgba(255,92,124,0.14); color: var(--danger);"><i class="bi bi-speedometer2"></i></div>
+      <span class="stat-label">Avg FPS</span>
+      <span class="stat-value" id="statAvgFps">0</span>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="glass-card">
+      <h6 class="mb-3"><i class="bi bi-calendar3 me-2" style="color:var(--accent);"></i>Detections Per Day</h6>
+      <div class="chart-box">
+        <canvas id="perDayChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="glass-card">
+      <h6 class="mb-3"><i class="bi bi-pie-chart-fill me-2" style="color:var(--accent-2);"></i>Confidence Overview</h6>
+      <div class="chart-box">
+        <canvas id="confidenceChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+{% endblock %}

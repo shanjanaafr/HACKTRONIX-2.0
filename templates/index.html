@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}BallVision - AI Ball Detection System{% endblock %}
+
+{% block content %}
+
+<div class="hero-grid mb-4">
+  <div class="glass-card d-flex flex-column justify-content-center">
+    <span class="pill pill-success mb-3" style="width: fit-content;">
+      <i class="bi bi-lightning-charge-fill"></i> Real-time AI Detection
+    </span>
+    <h1 class="hero-title">
+      Detect any ball, <span class="grad-text">in real time,</span><br>
+      right from your webcam.
+    </h1>
+    <p class="hero-lead">
+      BallVision is a computer-vision monitoring system that uses YOLOv8 and
+      OpenCV to locate a ball in a live video feed - tracking its position,
+      confidence, and speed while logging every detection for later review.
+      Built for a hackathon, designed like a production dashboard.
+    </p>
+    <div class="d-flex gap-3 flex-wrap">
+      <a href="{{ url_for('detect_page') }}" class="btn btn-gradient">
+        <i class="bi bi-play-circle-fill me-2"></i>Start Detection
+      </a>
+      <a href="{{ url_for('analytics_page') }}" class="btn btn-outline-glass">
+        <i class="bi bi-bar-chart-line me-2"></i>View Analytics
+      </a>
+    </div>
+  </div>
+
+  <div class="glass-card d-flex flex-column">
+    <h4 class="mb-3"><i class="bi bi-diagram-3-fill me-2" style="color:var(--accent-2);"></i>How it works</h4>
+    <div class="d-flex flex-column gap-3">
+      <div class="metric-item">
+        <span class="metric-label"><i class="bi bi-camera-video me-2"></i>1. Capture</span>
+        <span class="metric-value">Webcam / Video</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label"><i class="bi bi-cpu me-2"></i>2. Detect</span>
+        <span class="metric-value">YOLOv8 + OpenCV</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label"><i class="bi bi-hdd-stack me-2"></i>3. Log</span>
+        <span class="metric-value">SQLite Database</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label"><i class="bi bi-graph-up-arrow me-2"></i>4. Visualize</span>
+        <span class="metric-value">Live Dashboard</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Feature grid -->
+<h3 class="mb-3 mt-5">Core Features</h3>
+<div class="row g-3 mb-5">
+  <div class="col-md-4">
+    <div class="glass-card feature-card h-100">
+      <div class="feature-icon" style="background: rgba(34,230,160,0.14); color: var(--accent);"><i class="bi bi-bullseye"></i></div>
+      <div>
+        <h6 class="mb-1">Precise Localization</h6>
+        <p class="mb-0 text-body-secondary small">Bounding box + center-point coordinates for every detected ball, updated every frame.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="glass-card feature-card h-100">
+      <div class="feature-icon" style="background: rgba(79,139,255,0.14); color: var(--accent-2);"><i class="bi bi-speedometer2"></i></div>
+      <div>
+        <h6 class="mb-1">Real-time FPS</h6>
+        <p class="mb-0 text-body-secondary small">Optimized with YOLOv8-nano to target 20+ FPS on a standard laptop CPU.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="glass-card feature-card h-100">
+      <div class="feature-icon" style="background: rgba(177,108,255,0.14); color: var(--accent-3);"><i class="bi bi-clock-history"></i></div>
+      <div>
+        <h6 class="mb-1">Detection History</h6>
+        <p class="mb-0 text-body-secondary small">Every detection is logged to SQLite with a thumbnail, searchable in a live table.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="glass-card feature-card h-100">
+      <div class="feature-icon" style="background: rgba(255,92,124,0.14); color: var(--danger);"><i class="bi bi-palette2"></i></div>
+      <div>
+        <h6 class="mb-1">Colour Filtering</h6>
+        <p class="mb-0 text-body-secondary small">Optionally restrict detection to a specific ball colour (orange, green, yellow, red).</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="glass-card feature-card h-100">
+      <div class="feature-icon" style="background: rgba(34,230,160,0.14); color: var(--accent);"><i class="bi bi-collection-play"></i></div>
+      <div>
+        <h6 class="mb-1">Webcam or Video</h6>
+        <p class="mb-0 text-body-secondary small">Switch seamlessly between a live webcam feed and an uploaded video file.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="glass-card feature-card h-100">
+      <div class="feature-icon" style="background: rgba(79,139,255,0.14); color: var(--accent-2);"><i class="bi bi-file-earmark-spreadsheet"></i></div>
+      <div>
+        <h6 class="mb-1">CSV Export</h6>
+        <p class="mb-0 text-body-secondary small">Export the entire detection history for further analysis in Excel or Sheets.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tech stack -->
+<div class="glass-card mb-5">
+  <h5 class="mb-3"><i class="bi bi-stack me-2" style="color:var(--accent);"></i>Technologies Used</h5>
+  <div>
+    <span class="tech-chip"><i class="bi bi-filetype-py"></i>Python</span>
+    <span class="tech-chip"><i class="bi bi-camera"></i>OpenCV</span>
+    <span class="tech-chip"><i class="bi bi-bounding-box-circles"></i>YOLOv8</span>
+    <span class="tech-chip"><i class="bi bi-server"></i>Flask</span>
+    <span class="tech-chip"><i class="bi bi-database"></i>SQLite</span>
+    <span class="tech-chip"><i class="bi bi-filetype-html"></i>HTML5</span>
+    <span class="tech-chip"><i class="bi bi-filetype-css"></i>CSS3</span>
+    <span class="tech-chip"><i class="bi bi-filetype-js"></i>JavaScript</span>
+    <span class="tech-chip"><i class="bi bi-bootstrap-fill"></i>Bootstrap 5</span>
+    <span class="tech-chip"><i class="bi bi-bar-chart"></i>Chart.js</span>
+  </div>
+</div>
+
+{% endblock %}

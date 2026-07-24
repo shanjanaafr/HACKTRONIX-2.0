@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+
+{% block content %}
+<section class="container py-4">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <h2 class="mb-0"><i class="bi bi-clock-history me-2"></i>Detection History</h2>
+    <button id="clearBtn" class="btn btn-outline-danger btn-sm">
+      <i class="bi bi-trash3 me-1"></i>Clear History
+    </button>
+  </div>
+
+  <div class="table-responsive history-table-wrap">
+    <table class="table align-middle table-history">
+      <thead>
+        <tr>
+          <th>Thumbnail</th>
+          <th>Timestamp</th>
+          <th>Distance (m)</th>
+          <th>Angle (&deg;)</th>
+          <th>Confidence</th>
+          <th>Position</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>
+            {% if row.thumbnail %}
+            <img src="{{ url_for('static', filename='thumbnails/' + row.thumbnail) }}" class="thumb-img">
+            {% else %}
+            <span class="text-muted-custom">—</span>
+            {% endif %}
+          </td>
+          <td>{{ row.timestamp }}</td>
+          <td>{{ row.distance if row.distance is not none else '—' }}</td>
+          <td>{{ row.angle if row.angle is not none else '—' }}</td>
+          <td>{{ row.confidence if row.confidence is not none else '—' }}</td>
+          <td><span class="badge-pos badge-pos-{{ row.position|lower }}">{{ row.position }}</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center text-muted-custom py-4">No detections logged yet. Go run Live Detection first.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('clearBtn').addEventListener('click', async () => {
+  if (!confirm('Clear all detection history? This cannot be undone.')) return;
+  await fetch('/api/clear_history', { method: 'POST' });
+  window.location.reload();
+});
+</script>
+{% endblock %}

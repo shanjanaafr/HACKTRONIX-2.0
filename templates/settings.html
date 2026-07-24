@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Settings - BallVision{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Settings</h2>
+<p class="page-subtitle">Fine-tune detection behaviour and appearance.</p>
+
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="glass-card mb-4">
+      <h6 class="mb-3"><i class="bi bi-camera-video me-2" style="color:var(--accent);"></i>Camera</h6>
+
+      <label class="form-label">Webcam Index</label>
+      <select id="cameraIndex" class="form-select mb-3">
+        <option value="0">Camera 0 (default)</option>
+        <option value="1">Camera 1</option>
+        <option value="2">Camera 2</option>
+      </select>
+      <div class="form-text text-body-secondary">If you have multiple webcams, try a different index if the feed doesn't open.</div>
+    </div>
+
+    <div class="glass-card mb-4">
+      <h6 class="mb-3"><i class="bi bi-sliders me-2" style="color:var(--accent-2);"></i>Detection Tuning</h6>
+
+      <label class="form-label d-flex justify-content-between">
+        <span>Confidence Threshold</span>
+        <span id="confDisplay">0.35</span>
+      </label>
+      <input type="range" class="form-range mb-3" id="confSlider" min="0.1" max="0.9" step="0.05" value="0.35">
+
+      <label class="form-label">Colour Filter (bonus)</label>
+      <select id="colorFilter" class="form-select mb-3">
+        <option value="">None (detect any ball colour)</option>
+        <option value="orange">Orange (e.g. basketball, football)</option>
+        <option value="green">Green (e.g. tennis ball)</option>
+        <option value="yellow">Yellow</option>
+        <option value="red">Red</option>
+      </select>
+
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" id="multiBallToggle">
+        <label class="form-check-label" for="multiBallToggle">Enable Multi-Ball Detection</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="glass-card mb-4">
+      <h6 class="mb-3"><i class="bi bi-hdd-stack me-2" style="color:var(--accent-3);"></i>Storage</h6>
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" id="saveImagesToggle" checked>
+        <label class="form-check-label" for="saveImagesToggle">Enable Image Saving to History / Gallery</label>
+      </div>
+      <div class="form-text text-body-secondary">When enabled, one snapshot per second is saved to disk and logged in SQLite.</div>
+    </div>
+
+    <div class="glass-card mb-4">
+      <h6 class="mb-3"><i class="bi bi-moon-stars me-2" style="color:var(--accent);"></i>Appearance</h6>
+      <div class="d-flex align-items-center justify-content-between">
+        <span class="text-body-secondary">Switch between dark and light dashboard themes.</span>
+        <button id="settingsThemeToggle" class="btn btn-outline-glass"><i class="bi bi-moon-stars-fill me-2"></i>Toggle Theme</button>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-check-circle-fill" style="color: var(--accent);"></i>
+        <span id="saveStatus" class="text-body-secondary">Settings sync automatically.</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Live Detection - BallVision{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Live Detection</h2>
+<p class="page-subtitle">Real-time ball tracking powered by YOLOv8 + OpenCV.</p>
+
+<div class="row g-4">
+  <!-- Video feed -->
+  <div class="col-lg-8">
+    <div class="glass-card p-3">
+      <div class="video-wrap" id="videoWrap">
+        <div class="video-placeholder" id="videoPlaceholder">
+          <i class="bi bi-camera-video-off"></i>
+          <div>Detection is stopped. Click <strong>Start Detection</strong> to begin.</div>
+        </div>
+        <img id="videoStream" style="display:none;" alt="Live detection stream">
+      </div>
+
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <button id="startBtn" class="btn btn-gradient"><i class="bi bi-play-fill me-2"></i>Start Detection</button>
+        <button id="stopBtn" class="btn btn-danger-glass" disabled><i class="bi bi-stop-fill me-2"></i>Stop</button>
+
+        <div class="ms-auto d-flex gap-2 flex-wrap">
+          <button id="useWebcamBtn" class="btn btn-outline-glass"><i class="bi bi-webcam me-2"></i>Use Webcam</button>
+          <label class="btn btn-outline-glass mb-0" for="videoUpload">
+            <i class="bi bi-upload me-2"></i>Upload Video
+          </label>
+          <input type="file" id="videoUpload" accept="video/*" style="display:none;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live stats -->
+  <div class="col-lg-4">
+    <div class="glass-card mb-4">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h6 class="mb-0"><i class="bi bi-activity me-2" style="color:var(--accent);"></i>Detection Status</h6>
+        <span id="statusPill" class="pill pill-neutral">Idle</span>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-item">
+          <span class="metric-label">Confidence</span>
+          <span class="metric-value" id="confVal">--</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">FPS</span>
+          <span class="metric-value" id="fpsVal">--</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Bounding Box (x1,y1,x2,y2)</span>
+          <span class="metric-value" id="bboxVal">--</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Center (X, Y)</span>
+          <span class="metric-value" id="centerVal">--</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Balls Detected</span>
+          <span class="metric-value" id="countVal">--</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <h6 class="mb-3"><i class="bi bi-graph-up me-2" style="color:var(--accent-2);"></i>Live FPS Graph</h6>
+      <div class="chart-box small">
+        <canvas id="fpsChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/detection.js') }}"></script>
+{% endblock %}

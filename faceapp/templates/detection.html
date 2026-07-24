@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Live Detection{% endblock %}
+
+{% block content %}
+<section class="container py-4">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <h2 class="mb-0"><i class="bi bi-broadcast me-2"></i>Live Detection</h2>
+    <div class="d-flex gap-2">
+      <button id="startBtn" class="btn btn-gradient"><i class="bi bi-play-fill me-1"></i>Start</button>
+      <button id="stopBtn" class="btn btn-outline-danger"><i class="bi bi-stop-fill me-1"></i>Stop</button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="video-card">
+        <img id="videoFeed" src="" alt="Live camera feed will appear here" class="w-100 rounded-4">
+        <div id="videoPlaceholder" class="video-placeholder">
+          <i class="bi bi-camera-video-off display-3 mb-2"></i>
+          <p>Click "Start" to open your webcam</p>
+        </div>
+      </div>
+      <div id="calibWarning" class="alert alert-warning mt-3 d-none">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        Not calibrated yet — distance values are approximate. Visit the
+        <a href="/calibration">Calibration page</a> for accurate results.
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="stat-card mb-3">
+        <div class="stat-row"><span><i class="bi bi-rulers me-2"></i>Distance</span><strong id="statDistance">--</strong></div>
+        <div class="stat-row"><span><i class="bi bi-compass me-2"></i>Angle</span><strong id="statAngle">--</strong></div>
+        <div class="stat-row"><span><i class="bi bi-arrows-angle-expand me-2"></i>Face Width</span><strong id="statWidth">--</strong></div>
+        <div class="stat-row"><span><i class="bi bi-shield-check me-2"></i>Confidence</span><strong id="statConfidence">--</strong></div>
+        <div class="stat-row"><span><i class="bi bi-speedometer2 me-2"></i>FPS</span><strong id="statFps">--</strong></div>
+      </div>
+
+      <div class="position-card text-center">
+        <p class="mb-2 text-muted-custom">Face Position</p>
+        <div id="positionBadge" class="position-badge">No Face</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/detection.js') }}"></script>
+{% endblock %}

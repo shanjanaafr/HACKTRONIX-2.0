@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Gallery - BallVision{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Detection Gallery</h2>
+<p class="page-subtitle">Every captured frame, with detection metadata.</p>
+
+<div class="gallery-grid" id="galleryGrid">
+  <!-- populated by JS -->
+</div>
+
+<div id="galleryEmpty" class="glass-card text-center text-body-secondary py-5" style="display:none;">
+  <i class="bi bi-images" style="font-size:2.2rem; display:block; margin-bottom:10px;"></i>
+  No images captured yet. Run a detection session with "Save Images" enabled in Settings.
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+{% endblock %}
